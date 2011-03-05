@@ -1,33 +1,15 @@
 Change Log
 ==========
 
-Verison 0.5
+Version 1.0
 -----------
-- read and use configuration file
-
-Version 0.4
-===========
-- refactor cron manager
-- boot script (/etc/init.d/phptaskdaemon)
-- cron restart script (for restarting after critical errors)
-- implement verbose logging
-
-Version 0.3
------------
-+ namespaces
-+ restructure shared memory variables
+- finish phpdoc documentation
 
 Version 0.2
 -----------
-+ simple concept of web interface for monitoring the daemon
-+ move files according zend framework structure
-
-Version 0.1.1
--------------
-+ Added this line
+- statistics controller
 
 Version 0.1
------------
-+/- understaning and playing with git
-+ added initial documentation
-+ inital import
+===========
++ imported phptaskdaemon version 0.3
++ removed phptaskdaemon library
