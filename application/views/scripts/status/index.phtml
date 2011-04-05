@@ -1,0 +1,66 @@
+<!DOCTYPE script PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>PhpTaskDaemon Status</title>
+<?php if ((isset($this->state['pid'])) && ($this->state['pid']>0)): ?>
+	<script type="text/JavaScript">
+	<!--
+	setTimeout("location.href = '/status/';",500);
+	//   -->
+	</script>
+<?php endif;?>
+</head>
+<body>
+<?php if ((isset($this->state['pid'])) && ($this->state['pid']>0)): ?>
+	<p>
+		PhpTaskDaemon is running
+		<b><?php echo $this->escape(count($this->state['childs'])) ?></b> tasks 
+		(main pid: <b><?php echo $this->escape($this->state['pid']) ?></b>).
+	</p>
+	
+	<table>
+	<tr>
+		<td width="75"><b>PID</b></td>
+		<td width="200"><b>Task</b></td>
+		<td width="250"><b>Progress</b></td>
+		<td width="400"><b>Description</b></td>
+	</tr>
+	<?php foreach ($this->state['childs'] as $childPid): ?>
+	<tr bgcolor="eeeeee">
+		<td><?php echo $this->escape($childPid) ?></td>
+		<td><?php echo $this->escape(ucfirst($this->state['status-' . $childPid])) ?></td>
+		<td>
+			<?php
+				$queueProgress = round((($this->state['task-' . $childPid]['statistics']['Loaded']-$this->state['task-' . $childPid]['statistics']['Queued']) / $this->state['task-' . $childPid]['statistics']['Loaded'])*100); 
+			?>
+			<img src="/images/progress1.gif" height="15" width="<?php echo $this->escape($queueProgress*2) ?>" />
+			<?php echo $this->escape($queueProgress) ?>%
+		</td>
+		<td>
+			Queued: <?php echo $this->escape($this->state['task-' . $childPid]['statistics']['Queued']) ?> / <?php echo $this->escape($this->state['task-' . $childPid]['statistics']['Loaded']) ?>
+			Done: <?php echo $this->escape($this->state['task-' . $childPid]['done']) ?>
+		</td>
+	</tr>
+	<tr>
+		<td><?php echo $this->escape($childPid) ?></td>
+		<td>Task</td>
+		<td>
+			<img src="/images/progress2.gif" height="15" width="<?php echo $this->escape($this->state['task-' . $childPid]['status']['percentage']*2) ?>" />
+			<?php echo $this->escape($this->state['task-' . $childPid]['status']['percentage']) ?>%
+		</td>
+		<td><?php echo $this->escape($this->state['task-' . $childPid]['status']['message']) ?></td>
+	</tr>
+	<?php endforeach; ?>
+	</table>
+
+	
+<?php else: ?>
+    <p>PhpTaskDaemon is <b>not</b> running.</p>
+<?php endif;?>
+
+<!-- 
+<hr />
+<?php echo $this->escape(print_r($this->state)) ?>
+ -->
+</body>
+</html>
