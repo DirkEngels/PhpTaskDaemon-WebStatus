@@ -7,7 +7,7 @@ Version 1.0
 
 Version 0.2
 -----------
-- statistics controller
++ implemented new getState method (new PhpTaskDaemon class structure)
 
 Version 0.1
 ===========
